@@ -1,0 +1,31 @@
+{
+  "name": "obsidian-publisher-united",
+  "version": "1.0.0",
+  "description": "Obsidian plugin to publish notes to various destinations",
+  "main": "main.js",
+  "scripts": {
+    "dev": "node esbuild.config.mjs",
+    "build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
+    "version": "node version-bump.mjs && git add manifest.json versions.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^16.11.6",
+    "@typescript-eslint/eslint-plugin": "5.29.0",
+    "@typescript-eslint/parser": "5.29.0",
+    "builtin-modules": "3.3.0",
+    "esbuild": "0.17.3",
+    "obsidian": "latest",
+    "tslib": "2.4.0",
+    "typescript": "4.7.4"
+  },
+  "dependencies": {
+    "@octokit/core": "^6.1.2",
+    "@octokit/types": "^13.6.1",
+    "@telegraf/entity": "^0.5.0",
+    "js-base64": "^3.7.7",
+    "telegraf": "^4.16.3"
+  }
+}

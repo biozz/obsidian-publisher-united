@@ -1,0 +1,10 @@
+{
+  "id": "publisher-united",
+  "name": "Publisher United",
+  "version": "1.0.0",
+  "minAppVersion": "0.15.0",
+  "description": "Publishes the contents of the notes into various destinations.",
+  "author": "Ivan Elfimov",
+  "authorUrl": "https://biozz.dev",
+  "isDesktopOnly": false
+}
