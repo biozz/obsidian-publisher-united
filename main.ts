@@ -55,13 +55,11 @@ export default class PublisherUnited extends Plugin {
 
 					publish(this.settings, this.app, currentFile);
 
-					new Notice(
-						`✅ Successfully published note to your BiozzBlog site.`,
-					);
+					new Notice(`✅ Successfully published note`);
 				} catch (e) {
 					console.error(e);
 					new Notice(
-						"❌ Unable to publish note, something went wrong.",
+						"❌ Unable to publish note, see developer console for details",
 					);
 				}
 			},
