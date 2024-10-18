@@ -11,10 +11,9 @@ import { Octokit } from "@octokit/core";
 // import { OctokitResponse } from "@octokit/types";
 import { Base64 } from "js-base64";
 import { Telegraf } from "telegraf";
-import { escapers } from "@telegraf/entity";
+import TelegramifyMarkdown from "telegramify-markdown";
 
 const frontmatterRegex = /^---\s*[\s\S]*?\s*---\s*/;
-const escapedHeadingRegex = /^\\#+\s*(.*)$/gm;
 
 interface PublisherUnitedSettings {
 	githubToken: string;
@@ -113,10 +112,7 @@ const publishTelegram = async (
 ) => {
 	const bot = new Telegraf(settings.telegramBotToken);
 	content = content.replace(frontmatterRegex, "");
-	content = escapers.MarkdownV2(content);
-	content = content.replace(escapedHeadingRegex, (_, headingText) => {
-		return `*${headingText.trim()}*`;
-	});
+	content = TelegramifyMarkdown(content, "keep");
 
 	if (frontmatter.telegram_message_id) {
 		try {
