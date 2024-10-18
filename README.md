@@ -9,15 +9,38 @@ Currently supported sources:
 
 The plugin uses frontmatter to configure the way the note is published. In this regard it is different from Enveloppe, which uses settings only.
 
-Publisher United has several opinions about how things should be written to be able to properly publish.
+Publisher United has several opinions about how things should be written to be able to properly publish:
 
-- Telegram channels
-  - First level headings are transformed into bold text
+- publishing is configured via frontmatter as much as possible
+- nots, which are published to Telegram will have first heading converted to bold text
 
 ## How to
 
-TODO
+### Publishing to GitHub repo
+
+- Create or use exising GitHub API Token and add it to the plugin settings
+- Make sure that your GitHub API Token is configured properly, i.e. has access to writing to target repository
+- Open target note, add `github_repo: <org>/<repo>` and `repo_path: content/blog`
+- Use `Publisher United: Publish current file` command
+- The plugin will commit the file to the repo to the specified path
+
+Note: the plugin will add entire file contents to the repo, including every frontmatter key and value.
+
+### Publishing to Telegram channel
+
+- Create or use existing Telegram Bot Token and add to the plugin settings
+- Add your bot to the target channel and make sure that it is configured properly (via BotFather), i.e. it should be able to post messages to the channel
+- Open target note and add `telegram_channel: "@mychannel"` to the frontmatter
+- Call `Publisher United: Publish current file`
+- The plugin will publish the file to the channel and add two more keys to the frontmatter: `telegram_message_id` (for post updates) and `telegram_url` (for convenience)
+- If you publish with `telegram_message_id` filled, than the plugin will update the post instead of publishing
+
+Note: first heading of the note will be converted to bold text, everything else will be converted to `MardownV2` format, including code blocks, quotes, etc.
 
 ## Alternatives
 
-TODO (enveloppe, flowershow)
+TODO (expand on enveloppe and flowershow)
+
+## Contributing
+
+Please create a bug or a feature and I will do my best to respond. PRs are always welcome.
