@@ -1,6 +1,6 @@
 {
   "name": "obsidian-publisher-united",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Obsidian plugin to publish notes to various destinations",
   "main": "main.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "version": "node version-bump.mjs && git add manifest.json versions.json"
   },
   "keywords": [],
-  "author": "",
+  "author": "Ivan Elfimov <ielfimov@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^16.11.6",
