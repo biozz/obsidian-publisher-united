@@ -1,6 +1,6 @@
 # Changlelog
 
-## 2024-12-06 v0.0.2 – James West
+## 2024-12-06 v0.0.3 – James West
 
 - Remove `@` from `telegram_url` values after publishing
 - Improve Octokit typing
