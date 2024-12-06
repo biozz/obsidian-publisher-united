@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@octokit/core": "^6.1.2",
+    "@octokit/plugin-rest-endpoint-methods": "^13.2.6",
     "@octokit/types": "^13.6.1",
     "@telegraf/entity": "^0.5.0",
     "js-base64": "^3.7.7",

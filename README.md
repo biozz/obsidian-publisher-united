@@ -44,3 +44,6 @@ TODO (expand on enveloppe and flowershow)
 ## Contributing
 
 Please create a bug or a feature and I will do my best to respond. PRs are always welcome.
+
+I wanted to have some fun with this plugin. It is named Publisher United, because it is about publishing stuff and it is aimed for published on various platforms, hence "united".
+Coincedentally, there is a football club with the name "Manchester United". That's why each version is named after a [Manchester United F.C. manager](https://en.wikipedia.org/wiki/List_of_Manchester_United_F.C._managers).

@@ -1,3 +1,6 @@
+import { Octokit as OctokitBase } from "@octokit/core";
+import { restEndpointMethods } from "@octokit/plugin-rest-endpoint-methods";
+import { Base64 } from "js-base64";
 import {
 	App,
 	FrontMatterCache,
@@ -7,13 +10,11 @@ import {
 	Setting,
 	TFile,
 } from "obsidian";
-import { Octokit } from "@octokit/core";
-// import { OctokitResponse } from "@octokit/types";
-import { Base64 } from "js-base64";
 import { Telegraf } from "telegraf";
 import TelegramifyMarkdown from "telegramify-markdown";
 
 const frontmatterRegex = /^---\s*[\s\S]*?\s*---\s*/;
+const Octokit = OctokitBase.plugin(restEndpointMethods);
 
 interface PublisherUnitedSettings {
 	githubToken: string;
@@ -88,8 +89,8 @@ const publish = async (
 	app: App,
 	f: TFile,
 ) => {
-	let content = await app.vault.read(f);
-	let frontmatter = app.metadataCache.getCache(f.path)?.frontmatter;
+	const content = await app.vault.read(f);
+	const frontmatter = app.metadataCache.getCache(f.path)?.frontmatter;
 	if (!frontmatter) {
 		return;
 	}
@@ -140,8 +141,16 @@ const publishTelegram = async (
 		);
 		app.fileManager.processFrontMatter(f, (fm) => {
 			fm["telegram_message_id"] = result.message_id;
+			fm["telegram_published_at"] = result.date;
+			let telegramChannel = frontmatter.telegram_channel;
+			// it doesn't really matter,
+			// because https://t.me/@username still works
+			// but the url is nicer without the @
+			if (frontmatter.telegram_channel.startsWith("@")) {
+				telegramChannel = frontmatter.telegram_channel.slice(1);
+			}
 			fm["telegram_url"] =
-				`https://t.me/${frontmatter.telegram_channel}/${result.message_id}`;
+				`https://t.me/${telegramChannel}/${result.message_id}`;
 		});
 	} catch (e) {
 		console.error(e);
@@ -156,9 +165,9 @@ const publishGithub = async (
 ) => {
 	content = Base64.encode(content);
 	// TODO: improve it by checking if the path contains the filename
-	let path = `${frontmatter?.repo_path}/${f.name}`;
+	let path = `${frontmatter.repo_path}/${f.name}`;
 	path = decodeURI(path);
-	let [owner, repo] = frontmatter?.github_repo.split("/");
+	const [owner, repo] = frontmatter.github_repo.split("/");
 
 	const octokit = new Octokit({ auth: settings.githubToken });
 	const payload = {
@@ -171,16 +180,17 @@ const publishGithub = async (
 	};
 
 	try {
-		// TODO: fix types
-		const response: any = await octokit.request(
-			"GET /repos/{owner}/{repo}/contents/{path}",
-			{
-				owner: owner,
-				repo: repo,
-				path,
-			},
-		);
-		if (response.status === 200 && response.data.type == "file") {
+		const response = await octokit.rest.repos.getContent({
+			owner: owner,
+			repo: repo,
+			path,
+		});
+		if (
+			response.status === 200 &&
+			// This is important, otherwise typing doesn't work
+			"type" in response.data &&
+			response.data.type == "file"
+		) {
 			payload.message = `obsidian-PublisherUnited: ${path}`;
 			payload.sha = response.data.sha;
 		}
