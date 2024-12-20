@@ -12,7 +12,7 @@
   "author": "Ivan Elfimov <ielfimov@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^16.11.6",
+    "@types/node": "^16.18.122",
     "@typescript-eslint/eslint-plugin": "5.29.0",
     "@typescript-eslint/parser": "5.29.0",
     "builtin-modules": "3.3.0",
@@ -24,7 +24,7 @@
   "dependencies": {
     "@octokit/core": "^6.1.2",
     "@octokit/plugin-rest-endpoint-methods": "^13.2.6",
-    "@octokit/types": "^13.6.1",
+    "@octokit/types": "^13.6.2",
     "@telegraf/entity": "^0.5.0",
     "js-base64": "^3.7.7",
     "telegraf": "^4.16.3",
