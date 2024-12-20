@@ -122,6 +122,7 @@ const publishTelegram = async (
 				content,
 				{
 					parse_mode: "MarkdownV2",
+					link_preview_options: { is_disabled: true },
 				},
 			);
 			return;
@@ -137,6 +138,7 @@ const publishTelegram = async (
 			content,
 			{
 				parse_mode: "MarkdownV2",
+				link_preview_options: { is_disabled: true },
 			},
 		);
 		app.fileManager.processFrontMatter(f, (fm) => {
